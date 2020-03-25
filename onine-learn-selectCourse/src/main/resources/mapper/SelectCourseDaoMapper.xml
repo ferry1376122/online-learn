@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.online.learn.selectCourse.dao.SelectCourseDao">
+	<resultMap id="selectCourseMap" type="org.online.learn.domain.model.SelectCourseInfo">
+		<result property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="courseId" column="course_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+    <!--进行选课-->
+    <insert id="saveMyCourse" parameterType="org.online.learn.domain.model.SelectCourse" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `select_course_list`(`id`,`user_id`,`course_id`,`create_time`,`update_time`)
+		VALUES (#{id},#{userId},#{courseId},#{createTime},#{updateTime})
+	</insert>
+
+	<select id="querySelectCourse" resultMap="selectCourseMap">
+		select id,user_id,course_id,create_time,update_time from select_course_list
+		where 1=1
+		<if test="userId!=null">
+			and user_id=#{userId}
+		</if>
+		<if test="courseId!=null">
+			and course_id=#{courseId}
+		</if>
+	</select>
+
+</mapper>

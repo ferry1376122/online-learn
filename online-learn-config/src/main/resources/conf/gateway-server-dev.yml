@@ -1,0 +1,24 @@
+zuul:
+  routes:
+    api-a:
+      ### 以 /api-user/访问转发到user服务
+      path: /api-user/**
+      service-id: user-server
+    api-b:
+      ### 以 /api-course/访问转发到course服务
+      path: /api-course/**
+      service-id: course-server
+    api-c:
+      ### 以 /api-selectCourse/访问转发到selectCourse服务
+      path: /api-selectCourse/**
+      service-id: selectcourse-server
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:
+    enabled: false
+ribbon:
+  eureka:
+    enabled: true

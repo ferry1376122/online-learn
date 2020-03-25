@@ -1,0 +1,23 @@
+server:
+  port: 20005
+spring:
+  application:
+    name: selectcourse-server
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-center
+      enabled: true
+      profile: dev
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:20001/eureka/
+    healthcheck:
+      enabled: false
+    lease:
+      duration: 5

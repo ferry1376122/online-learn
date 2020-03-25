@@ -1,0 +1,25 @@
+server:
+  port: 20002
+spring:
+  application:
+    name: config-center
+  profiles:
+    #native
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          # 配置文件存放路径
+          search-locations: classpath:/conf
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:20001/eureka/
+    healthcheck:
+      enabled: false
+    lease:
+      duration: 5

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+		<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.online.learn.course.dao.CourseDao">
+
+	<resultMap id="courseMap" type="org.online.learn.domain.model.Course">
+		<result property="id" column="id"/>
+		<result property="courseType" column="course_type"/>
+		<result property="courseName" column="course_name"/>
+		<result property="courseDesc" column="course_desc"/>
+		<result property="teacher" column="teacher"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+<!--保存用户-->
+<insert id="saveCourse" parameterType="org.online.learn.domain.model.Course" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `course`(`id`,`course_type`,`course_name`,`course_desc`,`teacher`,`create_time`,`update_time`)
+		VALUES (#{id},#{courseType},#{courseName},#{courseDesc},#{teacher},#{createTime},#{updateTime})
+	</insert>
+
+	<select id="getCourseInfo" resultType="java.util.HashMap">
+		select * from course where id in
+		<foreach collection="courseids" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper>
